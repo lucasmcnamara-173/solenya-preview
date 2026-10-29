@@ -1,0 +1,58 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Solenya Health – Website Questions</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Merriweather:wght@400;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+<style>*{box-sizing:border-box;font-style:normal!important}body{margin:0;font:17px/1.5 Inter,system-ui,sans-serif;background:#fbf6f0;color:#2b2633}.w{max-width:640px;margin:0 auto;padding:16px}
+h1{font-size:24px;color:#2d1f45;margin:8px 0}.q{background:#fff;border-radius:16px;padding:16px;margin:14px 0;box-shadow:0 1px 4px rgba(0,0,0,.06)}.q h2{font-size:18px;margin:0 0 10px;color:#2d1f45}
+.opts{display:flex;flex-wrap:wrap;gap:8px}.o{border:2px solid #ddd;background:#fafafa;border-radius:12px;padding:10px 12px;min-height:46px;font:inherit;font-size:15px;color:#222;cursor:pointer;text-align:left}.o.on{border-color:#2d6a2d;background:#eaf5e8;font-weight:700}
+.sw{display:inline-block;width:20px;height:20px;border-radius:50%;margin-right:3px;vertical-align:-4px;border:1px solid #0002}.note{width:100%;margin-top:10px;font:15px system-ui;padding:8px;border:1px solid #ddd;border-radius:10px;color:#333}
+.ord li{display:flex;align-items:center;justify-content:space-between;background:#f6f3ef;margin:6px 0;padding:6px 10px;border-radius:10px;font-size:15px}.ord button{font-size:18px;min-width:44px;min-height:40px;border:1px solid #ccc;border-radius:8px;background:#fff;margin-left:4px}.ord{list-style:none;padding:0;margin:0}
+.row{display:flex;justify-content:space-between;align-items:center;gap:6px;padding:6px 0;border-bottom:1px solid #eee;font-size:15px}.row .opts{flex-wrap:nowrap}.row .o{padding:6px 10px;min-height:40px;font-size:14px}
+.big{display:block;width:100%;padding:16px;font:700 18px system-ui;border:0;border-radius:14px;background:#2d6a2d;color:#fff;margin:10px 0}.sec{background:#fff;color:#2d6a2d;border:2px solid #2d6a2d}#msg{color:#2d6a2d;text-align:center}
+.bs{display:inline-block;padding:8px 14px;background:#2d1f45;color:#fff;font-weight:700;font-size:14px}</style></head><body><div class="w">
+<h1>Your website, your way 🌿</h1><p>Hi Michelle! Just tap the answers you like. Every question is optional, and there are little boxes for notes if you want to say more. When you're done, tap the green button at the bottom. It takes about 5 minutes.</p>
+<div id="Q"></div>
+<button class="big" id="send">✉️ Send my answers to Lucas</button><button class="big sec" id="copy">📋 Copy my answers (if email doesn't open)</button><p id="msg"></p></div>
+<script>
+var TO="lucasmcnamara884@gmail.com";
+var SECS=["Top: We help people with...","Detox program","SpectraVision","Products","Lauren's testimonies","Fees, costs & hours","Contact & booking form","Disclaimer (footer)"];
+function sw(c){return c.map(function(x){return'<span class="sw" style="background:'+x+'"></span>'}).join('')}
+var QS=[
+{id:"feel",t:"1. How should the site feel overall?",o:["Calm & peaceful","Warm & friendly","Clean & professional","Natural & earthy","Keep it as it is"]},
+{id:"colors",t:"2. Which colors do you like?",o:[[sw(["#2d1f45","#4c7a3b","#fbf6f0"])+" Keep current (purple & green)","Keep current"],[sw(["#2f4a3a","#7a9a6b","#f4f7f2"])+" Soft sage","Soft sage"],[sw(["#1f3b57","#3a86a8","#f3f7fa"])+" Calm blue","Calm blue"],[sw(["#5a2d3c","#b0697a","#fbf3f2"])+" Warm rose","Warm rose"],[sw(["#4a3526","#a0703f","#f8f2ea"])+" Earthy tan","Earthy tan"]]},
+{id:"font",t:"3. Which writing style (font) looks best?",o:[['<span style="font-family:Inter">Solenya Health – Clean (current)</span>',"Clean (current, Inter)"],['<span style="font-family:Merriweather">Solenya Health – Classic</span>',"Classic serif (Merriweather)"],['<span style="font-family:Nunito">Solenya Health – Soft rounded</span>',"Soft rounded (Nunito)"]]},
+{id:"order",t:"4. What order should the parts of the page go in?",type:"order"},
+{id:"open",t:"5. Which parts should show fully, and which should be a tap-to-open dropdown?",type:"open"},
+{id:"logo",t:"6. How big should the logo be?",o:[['<span style="font-size:12px">🌿 Smaller</span>',"Smaller"],['<span style="font-size:17px">🌿 Same as now</span>',"Same as now"],['<span style="font-size:26px">🌿 Bigger</span>',"Bigger"]]},
+{id:"photos",t:"7. Photos on the site?",o:["More photos","About the same","Fewer photos","I'll send my own photos"],multi:1,ph:"Which photos? (e.g. a photo of me, my office, the SpectraVision device)"},
+{id:"btn",t:"8. Button style?",o:[['<span class="bs" style="border-radius:999px">Round</span>',"Round (current)"],['<span class="bs" style="border-radius:8px">Soft corners</span>',"Soft corners"],['<span class="bs" style="border-radius:0">Square</span>',"Square"]]},
+{id:"length",t:"9. How long should the page feel?",o:["Shorter – more dropdowns","About the same","Longer – show everything"]},
+{id:"likes",t:"10. Any other websites you like the look of?",type:"text",ph:"Paste a website address, e.g. www.example.com"},
+{id:"remove",t:"11. Anything you'd like removed?",type:"text",ph:"e.g. a section, a photo, a sentence"},
+{id:"other",t:"12. Anything else at all?",type:"text",ph:"Any other wishes"}];
+var A={};try{A=JSON.parse(localStorage.getItem('solenyaQ')||'{}')}catch(e){}
+A.order=A.order||SECS.slice();A.open=A.open||{};A.notes=A.notes||{};
+function sv(){localStorage.setItem('solenyaQ',JSON.stringify(A))}
+function render(){var h='';QS.forEach(function(q){h+='<div class="q"><h2>'+q.t+'</h2>';
+ if(q.o){h+='<div class="opts">';q.o.forEach(function(o){var lab=Array.isArray(o)?o[0]:o,val=Array.isArray(o)?o[1]:o;var on=q.multi?(A[q.id]||[]).indexOf(val)>=0:A[q.id]==val;h+='<button class="o'+(on?' on':'')+'" data-q="'+q.id+'" data-v="'+val.replace(/"/g,'&quot;')+'">'+lab+'</button>'});h+='</div>'}
+ if(q.type=="order"){h+='<ol class="ord">';A.order.forEach(function(s,i){h+='<li><span>'+(i+1)+'. '+s+'</span><span><button data-m="'+i+'" data-d="-1" aria-label="up">⬆</button><button data-m="'+i+'" data-d="1" aria-label="down">⬇</button></span></li>'});h+='</ol>'}
+ if(q.type=="open"){SECS.forEach(function(s){h+='<div class="row"><span>'+s+'</span><div class="opts">'+["Show","Dropdown"].map(function(v){return'<button class="o'+(A.open[s]==v?' on':'')+'" data-s="'+s+'" data-v="'+v+'">'+v+'</button>'}).join('')+'</div></div>'})}
+ h+='<textarea class="note" rows="'+(q.type=="text"?3:1)+'" data-n="'+q.id+'" placeholder="'+(q.ph||'Optional note')+'">'+(A.notes[q.id]||'').replace(/</g,'&lt;')+'</textarea></div>'});
+ document.getElementById('Q').innerHTML=h}
+document.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var d=b.dataset;
+ if(d.q){var q=QS.filter(function(x){return x.id==d.q})[0];if(q.multi){var a=A[d.q]||[];var i=a.indexOf(d.v);i>=0?a.splice(i,1):a.push(d.v);A[d.q]=a}else A[d.q]=A[d.q]==d.v?null:d.v}
+ else if(d.s){A.open[d.s]=A.open[d.s]==d.v?null:d.v}
+ else if(d.m!=null){var i=+d.m,j=i+ +d.d;if(j<0||j>=A.order.length)return;var t=A.order[i];A.order[i]=A.order[j];A.order[j]=t}
+ else return;sv();var y=scrollY;render();scrollTo(0,y)});
+document.addEventListener('input',function(e){if(e.target.dataset.n){A.notes[e.target.dataset.n]=e.target.value;sv()}});
+function summary(){var L=["Hi Lucas, here are my answers about the Solenya Health website:",""];
+ QS.forEach(function(q){var v;if(q.type=="order")v="\n"+A.order.map(function(s,i){return"   "+(i+1)+". "+s}).join("\n");
+  else if(q.type=="open")v="\n"+SECS.map(function(s){return"   - "+s+": "+(A.open[s]||"(no preference)")}).join("\n");
+  else if(q.type=="text")v=A.notes[q.id]||"(none)";
+  else v=(q.multi?(A[q.id]||[]).join(", "):A[q.id])||"(no answer)";
+  L.push(q.t+" "+v);if(q.type!="text"&&A.notes[q.id])L.push("   Note: "+A.notes[q.id]);L.push("")});
+ L.push("- Michelle");return L.join("\n")}
+function mailto(){return"mailto:"+TO+"?subject="+encodeURIComponent("Solenya Health website - my answers")+"&body="+encodeURIComponent(summary())}
+document.getElementById('send').onclick=function(e){e.stopPropagation();location.href=mailto()};
+document.getElementById('copy').onclick=function(e){e.stopPropagation();var t=summary(),m=function(){document.getElementById('msg').textContent='Copied! Paste it into a text or email to Lucas.'};
+ if(navigator.clipboard)navigator.clipboard.writeText(t).then(m,fb);else fb();function fb(){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');m()}catch(x){prompt('Copy this:',t)}a.remove()}};
+window.qSummary=summary;window.qMailto=mailto;render();
+</script></body></html>
