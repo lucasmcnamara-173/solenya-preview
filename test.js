@@ -1,0 +1,11 @@
+const {chromium}=require('playwright');(async()=>{const b=await chromium.launch({executablePath:'/usr/bin/google-chrome'});const p=await b.newPage({viewport:{width:390,height:844},deviceScaleFactor:2});
+const B='https://lucasmcnamara-173.github.io/solenya-preview/';
+await p.goto(B+'questionnaire.html',{waitUntil:'networkidle'});await p.screenshot({path:'qa/q_top.png'});
+await p.click('text=Soft sage');await p.click('button[data-m="0"][data-d="1"]');await p.fill('textarea[data-n="likes"]','www.example.com');
+await p.screenshot({path:'qa/q_full.png',fullPage:true});
+let m=await p.evaluate(()=>qMailto());console.log('Q MAILTO:',m.slice(0,80));console.log(decodeURIComponent(m.split('body=')[1]));
+await p.goto(B,{waitUntil:'networkidle'});await p.screenshot({path:'qa/p_top.png'});
+await p.click('#pvFab');await p.click('#pvP button[data-t="rose"]');await p.screenshot({path:'qa/p_panel.png'});
+await p.click('#pvP button[data-c="close"]');await p.click('#spectravision h2');await p.click('#pvSel button[data-a="up"]');await p.click('#pvSel button[data-a="hide"]');await p.screenshot({path:'qa/p_section.png'});
+await p.reload({waitUntil:'networkidle'});m=await p.evaluate(()=>pvMailto());console.log('P MAILTO:',m.slice(0,80));console.log(decodeURIComponent(m.split('body=')[1]));
+await b.close()})();

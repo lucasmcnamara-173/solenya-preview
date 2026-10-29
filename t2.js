@@ -1,0 +1,2 @@
+const {chromium}=require('playwright');(async()=>{const b=await chromium.launch({executablePath:'/usr/bin/google-chrome'});const p=await b.newPage({viewport:{width:390,height:844},deviceScaleFactor:2});
+await p.goto('https://lucasmcnamara-173.github.io/solenya-preview/',{waitUntil:'networkidle'});await p.evaluate(()=>{document.documentElement.style.scrollBehavior='auto';scrollTo(0,3000)});await p.waitForTimeout(800);await p.screenshot({path:'qa/p_scrolled.png'});await b.close()})();
